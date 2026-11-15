@@ -10,10 +10,6 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    junitVersion = '5.14.4'
-}
-
 java {
     sourceCompatibility = '21'
     targetCompatibility = '21'
@@ -26,8 +22,9 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
