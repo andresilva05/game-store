@@ -10,10 +10,6 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    junitVersion = '5.14.4'
-}
-
 java {
     sourceCompatibility = '21'
     targetCompatibility = '21'
@@ -26,17 +22,22 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-
+    // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.48'
     annotationProcessor 'org.projectlombok:lombok:1.18.48'
 
+    // Banco de Dados & Pool de Conexões
     implementation 'com.zaxxer:HikariCP:7.1.0'
     implementation 'com.mysql:mysql-connector-j:26.7.0'
 
+    // JSTL (Jakarta EE 10)
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+    // Testes Automatizados (JUnit 5)
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
