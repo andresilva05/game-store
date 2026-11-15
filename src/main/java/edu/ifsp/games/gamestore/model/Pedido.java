@@ -18,4 +18,15 @@ public class Pedido {
     private BigDecimal valorCompra;
 
     private List<ItemPedido> itens = new ArrayList<>();
+
+    public Pedido() {
+    }
+
+    public Pedido(int id, int idUsuario, Date dataCompra, BigDecimal valorCompra, List<ItemPedido> itens) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.dataCompra = dataCompra;
+        this.valorCompra = valorCompra;
+        this.itens = itens;
+    }
 }

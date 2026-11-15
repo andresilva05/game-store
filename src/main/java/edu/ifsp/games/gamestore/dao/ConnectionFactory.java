@@ -24,8 +24,7 @@ public class ConnectionFactory {
 		// Lazy Initialization
 		if (ds == null) {
 			ds = new HikariDataSource();
-			ds.setJdbcUrl("jdbc:mysql://localhost:3306/loja");
-			ds.setUsername("root");
+			ds.setJdbcUrl("jdbc:mysql://localhost:3306/gamestore");			ds.setUsername("root");
 			ds.setPassword("root");
 		}
 		

@@ -8,6 +8,7 @@ import edu.ifsp.games.gamestore.model.Pedido;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 public class PedidoService {
@@ -51,5 +52,9 @@ public class PedidoService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Pedido> listarPorUsuario(int idUsuario) {
+        return pedidoDAO.listarPorUsuario(idUsuario);
     }
 }
