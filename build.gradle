@@ -24,7 +24,23 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+    // Jakarta EE 10 APIs
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
+    compileOnly('jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1')
+
+    // JSTL
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+    // Driver MySQL
+    implementation 'com.mysql:mysql-connector-j:9.1.0'
+
+    // Pool HikariCP + Logger
+    implementation 'com.zaxxer:HikariCP:6.2.1'
+    implementation 'org.slf4j:slf4j-simple:2.0.12'
+
+    // Hash de Senha
+    implementation 'org.mindrot:jbcrypt:0.4'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
