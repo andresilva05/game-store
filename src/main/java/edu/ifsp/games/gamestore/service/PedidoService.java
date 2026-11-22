@@ -1,6 +1,6 @@
 package edu.ifsp.games.gamestore.service;
 
-import edu.ifsp.games.gamestore.dao.ConnectionFactory;
+import edu.ifsp.games.gamestore.config.ConnectionFactory;
 import edu.ifsp.games.gamestore.dao.PedidoDAO;
 import edu.ifsp.games.gamestore.exception.RegraNegocioException;
 import edu.ifsp.games.gamestore.model.ItemPedido;

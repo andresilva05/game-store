@@ -1,17 +1,41 @@
 package edu.ifsp.games.gamestore.model;
 
-public class Usuario {
+import java.io.Serializable;
 
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Integer id;
     private String nome;
     private String email;
     private String senha;
-    private papelUsuario papel;
+    private PapelUsuario papel;
 
-    public Usuario(String nome, String email, String senha, papelUsuario papel) {
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha, PapelUsuario papel) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.papel = papel;
+    }
+
+    public Usuario(Integer id, String nome, String email, String senha, PapelUsuario papel) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.papel = papel;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -38,11 +62,29 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public papelUsuario getPapel() {
+    public PapelUsuario getPapel() {
         return papel;
     }
 
-    public void setPapel(papelUsuario papel) {
+    public void setPapel(PapelUsuario papel) {
         this.papel = papel;
+    }
+
+    public boolean isAdmin() {
+        return PapelUsuario.ADMIN.equals(this.papel);
+    }
+
+    public Usuario semSenha() {
+        return new Usuario(this.id, this.nome, this.email, null, this.papel);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", papel=" + papel +
+                '}';
     }
 }
