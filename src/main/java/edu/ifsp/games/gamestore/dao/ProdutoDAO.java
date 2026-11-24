@@ -1,6 +1,7 @@
 package edu.ifsp.games.gamestore.dao;
 
 import edu.ifsp.games.gamestore.config.ConnectionFactory;
+import edu.ifsp.games.gamestore.exception.DataAccessException;
 import edu.ifsp.games.gamestore.model.Produto;
 
 import java.sql.*;
@@ -52,6 +53,47 @@ public class ProdutoDAO {
             return produtos;
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar produtos: " + e.getMessage(), e);
+        }
+    }
+
+    public List<Produto> listarAtivos(Integer plataformaId, String busca) {
+        StringBuilder sql = new StringBuilder(
+                "SELECT p.id, p.plataforma_id, p.titulo, p.valor_credito, p.preco_venda, p.estoque, p.ativo, " +
+                "       plat.nome AS plataforma_nome " +
+                "FROM produto p " +
+                "INNER JOIN plataforma plat ON p.plataforma_id = plat.id " +
+                "WHERE p.ativo = TRUE "
+        );
+
+        if (plataformaId != null && plataformaId > 0) {
+            sql.append("AND p.plataforma_id = ? ");
+        }
+        if (busca != null && !busca.trim().isEmpty()) {
+            sql.append("AND LOWER(p.titulo) LIKE ? ");
+        }
+        sql.append("ORDER BY p.id DESC");
+
+        List<Produto> produtos = new ArrayList<>();
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            int indice = 1;
+            if (plataformaId != null && plataformaId > 0) {
+                ps.setInt(indice++, plataformaId);
+            }
+            if (busca != null && !busca.trim().isEmpty()) {
+                ps.setString(indice++, "%" + busca.trim().toLowerCase() + "%");
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    produtos.add(extrairProduto(rs));
+                }
+            }
+            return produtos;
+        } catch (SQLException e) {
+            throw new DataAccessException("Erro ao listar produtos ativos da vitrine: " + e.getMessage(), e);
         }
     }
 

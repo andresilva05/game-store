@@ -89,6 +89,15 @@
         background-color: #f75a68;
         color: #121214;
     }
+    .gs-cart-badge {
+        background-color: #00b37e;
+        color: #121214;
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 2px 7px;
+        border-radius: 999px;
+        margin-left: 4px;
+    }
 </style>
 
 <nav class="gs-navbar">
@@ -96,6 +105,14 @@
         <a class="gs-brand" href="${pageContext.request.contextPath}/">🎮 GameStore</a>
 
         <div class="gs-nav-links">
+            <a class="gs-nav-link" href="${pageContext.request.contextPath}/vitrine">Vitrine</a>
+            <a class="gs-nav-link" href="${pageContext.request.contextPath}/carrinho">
+                🛒 Carrinho
+                <c:if test="${not empty sessionScope.carrinho and sessionScope.carrinho.quantidadeTotal > 0}">
+                    <span class="gs-cart-badge">${sessionScope.carrinho.quantidadeTotal}</span>
+                </c:if>
+            </a>
+
             <c:choose>
                 <c:when test="${not empty sessionScope.usuarioLogado}">
                     <a class="gs-nav-link" href="${pageContext.request.contextPath}/meus-pedidos">Meus Gift Cards</a>

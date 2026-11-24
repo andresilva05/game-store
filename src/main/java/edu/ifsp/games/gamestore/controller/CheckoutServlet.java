@@ -2,6 +2,9 @@ package edu.ifsp.games.gamestore.controller;
 
 import edu.ifsp.games.gamestore.config.SessionAttributes;
 import edu.ifsp.games.gamestore.exception.RegraNegocioException;
+import edu.ifsp.games.gamestore.model.Carrinho;
+import edu.ifsp.games.gamestore.model.ItemCarrinho;
+import edu.ifsp.games.gamestore.model.ItemPedido;
 import edu.ifsp.games.gamestore.model.Pedido;
 import edu.ifsp.games.gamestore.model.Usuario;
 import edu.ifsp.games.gamestore.service.PedidoService;
@@ -33,15 +36,29 @@ public class CheckoutServlet extends HttpServlet {
 
         PedidoService service = new PedidoService();
 
-        // TODO (Alcindo - Módulo 3):
-        // Quando o carrinho estiver pronto na sessão, vamos extrair os itens daqui
-        // para popular o objeto Pedido antes de chamar a finalização.
+        Carrinho carrinho = (Carrinho) session.getAttribute(SessionAttributes.CARRINHO);
         Pedido pedido = new Pedido();
         pedido.setIdUsuario(usuarioLogado.getId());
+
+        if (carrinho != null && !carrinho.isVazio()) {
+            pedido.setValorCompra(carrinho.getValorTotal());
+            for (ItemCarrinho itemCarrinho : carrinho.getItens()) {
+                for (int i = 0; i < itemCarrinho.getQuantidade(); i++) {
+                    ItemPedido itemPedido = new ItemPedido();
+                    itemPedido.setProdutoId(itemCarrinho.getProduto().getId());
+                    itemPedido.setPreco(itemCarrinho.getProduto().getPrecoVenda());
+                    pedido.getItens().add(itemPedido);
+                }
+            }
+        }
 
         try {
             // Executa a transação atômica no Service
             service.finalizarCompra(pedido);
+
+            if (carrinho != null) {
+                carrinho.limpar();
+            }
 
             // PADRÃO PRG (Post-Redirect-Get):
             // Redireciono com sendRedirect para evitar que o usuário dê F5/Refresh
@@ -51,7 +68,8 @@ public class CheckoutServlet extends HttpServlet {
         } catch (RegraNegocioException e) {
             // Se falhar alguma regra de negócio, capturo a mensagem e devolvo para a tela com forward
             request.setAttribute("erro", e.getMessage());
-            request.getRequestDispatcher("/carrinho/carrinho.jsp").forward(request, response);
+            request.setAttribute("carrinho", carrinho != null ? carrinho : new Carrinho());
+            request.getRequestDispatcher("/WEB-INF/views/carrinho.jsp").forward(request, response);
         }
     }
 }
