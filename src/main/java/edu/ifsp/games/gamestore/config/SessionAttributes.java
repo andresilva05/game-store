@@ -7,6 +7,7 @@ public final class SessionAttributes {
     public static final String MENSAGEM_ERRO = "mensagemErro";
     public static final String URL_DESTINO = "urlDestino";
     public static final String SESSOES_ATIVAS = "sessoesAtivas";
+    public static final String CARRINHO = "carrinho";
 
     private SessionAttributes() {
     }

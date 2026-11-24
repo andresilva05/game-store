@@ -34,6 +34,10 @@ public class ProdutoService {
         return produtoDAO.listarTodos();
     }
 
+    public List<Produto> listarAtivos(Integer plataformaId, String busca) {
+        return produtoDAO.listarAtivos(plataformaId, busca);
+    }
+
     public Produto buscarPorId(int id) {
         Produto produto = produtoDAO.buscarPorId(id);
         if (produto == null) {
