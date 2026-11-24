@@ -20,19 +20,26 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
-
-    // Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.48'
-    annotationProcessor 'org.projectlombok:lombok:1.18.48'
-
-    // Banco de Dados & Pool de Conexões
-    implementation 'com.zaxxer:HikariCP:7.1.0'
-    implementation 'com.mysql:mysql-connector-j:26.7.0'
+    // Jakarta EE 10 APIs (fornecidas pelo Tomcat 10.1 e excluídas do WAR via providedCompile)
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    providedCompile 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1'
+    providedCompile 'jakarta.el:jakarta.el-api:5.0.0'
 
     // JSTL (Jakarta EE 10)
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+    // Banco de Dados, Pool de Conexões & Logger
+    implementation 'com.mysql:mysql-connector-j:26.7.0'
+    implementation 'com.zaxxer:HikariCP:7.1.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.17'
+
+    // Hash de Senha (BCrypt)
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.48'
+    annotationProcessor 'org.projectlombok:lombok:1.18.48'
 
     // Testes Automatizados (JUnit 5)
     testImplementation platform('org.junit:junit-bom:5.10.2')

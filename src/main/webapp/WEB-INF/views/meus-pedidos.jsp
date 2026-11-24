@@ -11,11 +11,12 @@
             background-color: #121214;
             color: #e1e1e6;
             margin: 0;
-            padding: 20px;
+            padding: 0 0 20px 0;
         }
         .container {
             max-width: 900px;
             margin: 0 auto;
+            padding: 0 20px;
         }
         h1 {
             color: #00b37e;
@@ -81,6 +82,8 @@
     </style>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/views/fragments/navbar.jsp"/>
 
 <div class="container">
     <h1>🎮 Meus Pedidos & Códigos PIN</h1>
