@@ -1,6 +1,7 @@
 package edu.ifsp.games.gamestore.service;
 
 import edu.ifsp.games.gamestore.dao.PlataformaDAO;
+import edu.ifsp.games.gamestore.exception.RegraNegocioException;
 import edu.ifsp.games.gamestore.model.Plataforma;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package edu.ifsp.games.gamestore.dao;
 
+import edu.ifsp.games.gamestore.config.ConnectionFactory;
 import edu.ifsp.games.gamestore.model.Produto;
 
 import java.sql.*;

@@ -2,7 +2,7 @@ package edu.ifsp.games.gamestore.controller;
 
 import edu.ifsp.games.gamestore.model.Plataforma;
 import edu.ifsp.games.gamestore.service.PlataformaService;
-import edu.ifsp.games.gamestore.service.RegraNegocioException;
+import edu.ifsp.games.gamestore.exception.RegraNegocioException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

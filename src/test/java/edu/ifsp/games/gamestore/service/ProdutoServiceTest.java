@@ -1,6 +1,7 @@
 package edu.ifsp.games.gamestore.service;
 
 import edu.ifsp.games.gamestore.dao.ProdutoDAO;
+import edu.ifsp.games.gamestore.exception.RegraNegocioException;
 import edu.ifsp.games.gamestore.model.Produto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
